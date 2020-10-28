@@ -10,16 +10,21 @@ app.prepare().then(() => {
     const server = new Koa();
     const router = new Router()
 
-    router.get('/test', (ctx) => {
-        ctx.body = '<span>request / test</span>'
+    router.get('/test/a/:id', async (ctx) => {
+        const id = ctx.params.id
+        await handle(ctx.req, ctx.res, {
+            pathname: '/test/a',
+            query: { id }
+        })
+        ctx.respond = false
     })
+
+    server.use(router.routes())
 
     server.use(async (ctx, next) => {
         await handle(ctx.req, ctx.res)
         ctx.respond = false
     })
-
-    server.use(router.routes())
 
     server.listen(3000, () => {
         console.log('koa server listening on port 3000')
