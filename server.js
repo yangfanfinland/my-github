@@ -14,13 +14,9 @@ app.prepare().then(() => {
         ctx.body = '<span>request / test</span>'
     })
 
-    // server.use(async (ctx, next) => {
-    //     await handle(ctx.req, ctx.res)
-    //     ctx.respond = false
-    // })
-
     server.use(async (ctx, next) => {
-        await next()
+        await handle(ctx.req, ctx.res)
+        ctx.respond = false
     })
 
     server.use(router.routes())
