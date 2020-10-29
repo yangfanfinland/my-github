@@ -34,10 +34,12 @@ export default () => {
 
   return (
     <>
-      <Link href="/test/a?id=1" as="/test/a/1">
+      {/* <Link href="/test/a?id=1" as="/test/a/1">
         <Button>Index</Button>
       </Link>
-      <Button onClick={goToTestB}>test b</Button>
+      <Button onClick={goToTestB}>test b</Button> */}
+
+      <span>Index</span>
     </>
   )
 }
