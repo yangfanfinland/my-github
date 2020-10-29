@@ -14,8 +14,6 @@ const Title = styled.h1`
 `
 
 const A = ({ router, name, time }) => {
-  console.log(serverRuntimeConfig, publicRuntimeConfig)
-
   return (
     <>
       <Title>This is title {time}</Title>

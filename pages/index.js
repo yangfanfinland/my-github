@@ -1,8 +1,14 @@
+import { useEffect  } from 'react'
+import axios from 'axios'
+
 import Link from 'next/link'
 import Router from 'next/router'
 import { Button } from 'antd'
 import { connect } from 'react-redux'
+import getConfig from 'next/config'
 import { add } from '../store/store'
+
+const { publicRuntimeConfig } = getConfig()
 
 const events = [
   'routeChangeStart',
@@ -37,6 +43,10 @@ const Index = ({ counter, add }) => {
     )
   }
 
+  useEffect(() => {
+    axios.get('/api/user/info').then(resp => console.log(resp))
+  }, [])
+
   return (
     <>
       {/* <Link href="/test/a?id=1" as="/test/a/1">
@@ -46,6 +56,7 @@ const Index = ({ counter, add }) => {
 
       <span>Count: {counter}</span>
       <Button onClick={(e) => add(counter)}>Add</Button>
+      <a href={publicRuntimeConfig.OAUTH_URL}>Login</a>
     </>
   )
 }

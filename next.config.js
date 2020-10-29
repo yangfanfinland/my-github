@@ -1,4 +1,5 @@
 const withCss = require('@zeit/next-css')
+const config = require('./config')
 
 const configs = {
     // 编译文件的输出目录
@@ -53,15 +54,12 @@ const configs = {
 //     require.extensions['.css'] = file => {}
 // }
 
+const GITHUB_OAUTH_URL = 'https://github.com/login/oauth/authorize'
+const SCOPE = 'user'
+
 module.exports = withCss({
-    env: {
-        customKey: 'value',
-    },
-    serverRuntimeConfig: {
-        mySecret: 'secret',
-        secondSecret: process.env.SECOND_SECRET,
-    },
     publicRuntimeConfig: {
-        staticFolder: '/static'
+        GITHUB_OAUTH_URL,
+        OAUTH_URL: `${GITHUB_OAUTH_URL}?client_id=${config.github.client_id}&scope=${SCOPE}`
     },
 })
