@@ -1,32 +1,35 @@
 import App from 'next/app'
-
+import { Provider } from 'react-redux'
 import Layout from '../components/Layout'
+
+import withRedux from '../lib/with-redux'
 
 import 'antd/dist/antd.css'
 import '../styles/globals.css'
 
 class MyApp extends App {
+  static async getInitialProps(ctx) {
+    const { Component } = ctx
+    let pageProps = {}
 
-  // Only uncomment this method if you have blocking data requirements for
-  // every single page in your application. This disables the ability to
-  // perform automatic static optimization, causing every page in your app to
-  // be server-side rendered.
-  static async getInitialProps(appContext) {
-    // calls page's `getInitialProps` and fills `appProps.pageProps`
-    const appProps = await App.getInitialProps(appContext);
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx)
+    }
 
-    return { ...appProps }
+    return { ...pageProps }
   }
 
   render() {
-    const { Component, pageProps } = this.props
+    const { Component, pageProps, reduxStore } = this.props
 
     return (
       <Layout>
-        <Component { ... pageProps } />
+        <Provider store={reduxStore}>
+          <Component {...pageProps} />
+        </Provider>
       </Layout>
     )
   }
 }
 
-export default MyApp
+export default withRedux(MyApp)
