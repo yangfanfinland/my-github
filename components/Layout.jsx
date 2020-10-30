@@ -2,14 +2,12 @@ import { useCallback, useState } from 'react'
 import { Layout, Input, Avatar, Tooltip, Dropdown, Menu } from 'antd'
 import { GithubOutlined, UserOutlined } from '@ant-design/icons'
 import Container from './Container'
-import getConfig from 'next/config'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../store/store'
 import { withRouter } from 'next/router'
 import Link from 'next/link'
 
 const { Header, Content, Footer } = Layout
-const { publicRuntimeConfig } = getConfig()
 
 const footerStyle = {
   textAlign: 'center',
