@@ -15,6 +15,7 @@ const footerStyle = {
 
 function MyLayout({ children, router }) {
   const urlQuery = router.query && router.query.query
+  console.log(urlQuery)
   const [search, setSearch] = useState(urlQuery || '')
   const user = useSelector((store) => store.user)
   const dispatch = useDispatch()
