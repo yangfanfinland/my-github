@@ -1,5 +1,5 @@
 export default () => {
     return (
-        <span>Index</span>
+        <span>Detail</span>
     )
 }

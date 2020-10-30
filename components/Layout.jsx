@@ -1,16 +1,122 @@
-import Link from 'next/link'
-import { Button } from 'antd'
+import { useCallback, useState } from 'react'
+import { Layout, Input, Avatar, Tooltip, Dropdown, Menu } from 'antd'
+import { GithubOutlined, UserOutlined } from '@ant-design/icons'
+import Container from './Container'
+import getConfig from 'next/config'
+import { useSelector, useDispatch } from 'react-redux'
+import { logout } from '../store/store'
+import axios from 'axios'
+import { withRouter } from 'next/router'
 
-export default ({ children }) => (
-  <>
-    <header>
-      <Link href="/test/a?id=1" as="/test/a/1">
-        <Button>A</Button>
-      </Link>
-      <Link href="/test/b" as="/test/b">
-        <Button>B</Button>
-      </Link>
-      { children }
-    </header>
-  </>
-)
+const { Header, Content, Footer } = Layout
+const { publicRuntimeConfig } = getConfig()
+
+const footerStyle = {
+  textAlign: 'center',
+}
+
+function MyLayout({ children, router }) {
+  const [search, setSearch] = useState('')
+  const user = useSelector((store) => store.user)
+  const dispatch = useDispatch()
+
+  const handleSearchChange = useCallback(
+    (event) => {
+      setSearch(event.target.value)
+    },
+    [setSearch]
+  )
+
+  const handleOnSearh = useCallback(() => {}, [])
+
+  const handleLogout = useCallback(() => {
+    dispatch(logout())
+  }, [dispatch])
+
+  const userDropDown = (
+    <Menu>
+      <Menu.Item>
+        <a href="javascript:void(0)" onClick={handleLogout}>
+          Logout
+        </a>
+      </Menu.Item>
+    </Menu>
+  )
+
+  return (
+    <Layout>
+      <Header>
+        <Container renderer={<div className="header-inner" />}>
+          <div className="header-left">
+            <div className="logo">
+              <GithubOutlined />
+            </div>
+            <div className="search">
+              <Input.Search
+                placeholder="search repository"
+                onChange={handleSearchChange}
+                onSearch={handleOnSearh}
+              />
+            </div>
+          </div>
+          <div className="header-right">
+            <div className="user">
+              {user && user.id ? (
+                <Dropdown overlay={userDropDown}>
+                  <a href="/">
+                    <Avatar size={40} src={user.avatar_url} />
+                  </a>
+                </Dropdown>
+              ) : (
+                <Tooltip title="Click to login">
+                  <a href={`/prepare-auth?url=${router.asPath}`}>
+                    <Avatar size={40} icon={<UserOutlined />} />
+                  </a>
+                </Tooltip>
+              )}
+            </div>
+          </div>
+        </Container>
+      </Header>
+      <Content>
+        <Container>{children}</Container>
+      </Content>
+      <Footer style={footerStyle}>
+        Developed by Fan Yang @
+        <a href="mailto:yangfanfinland@gmail.com">yangfanfinland@gmail.com</a>
+      </Footer>
+      <style jsx>{`
+        .header-inner {
+          display: flex;
+          justify-content: space-between;
+        }
+        .header-left {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+        }
+        .logo {
+          color: white;
+          font-size: 40px;
+          display: flex;
+          margin-right: 20px;
+        }
+        .search {
+          display: flex;
+        }
+      `}</style>
+      <style jsx global>{`
+        #__next,
+        .ant-layout {
+          height: 100%;
+        }
+        .ant-layout-header {
+          padding-left: 0;
+          padding-right: 0;
+        }
+      `}</style>
+    </Layout>
+  )
+}
+
+export default withRouter(MyLayout)

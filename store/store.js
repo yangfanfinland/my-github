@@ -1,37 +1,57 @@
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import ReduxThunk from 'redux-thunk'
+import { message } from 'antd'
+import axios from 'axios'
 
-const initialState = {
-  count: 0,
-}
-const ADD = 'ADD'
-function counterReducer(state = initialState, action) {
+const userInitialState = {}
+
+const LOGOUT = 'LOGOUT'
+
+function userReducer(state = userInitialState, action) {
   switch (action.type) {
-    case ADD:
-      return { count: state.count + action.num }
+    case LOGOUT: {
+      return {}
+    }
     default:
       return state
   }
 }
 
-export function add(num) {
-    return {
-        type: ADD,
-        num
-    }
-}
-
 const allReducers = combineReducers({
-    counter: counterReducer
+  user: userReducer,
 })
 
+// action creators
+export function logout() {
+  return (dispatch) => {
+    axios
+      .post('/logout')
+      .then((resp) => {
+        if (resp.status === 200) {
+          dispatch({
+            type: LOGOUT,
+          })
+          message.success('Logout success')
+        } else {
+          console.log('logout failed', resp)
+        }
+      })
+      .catch((error) => console.error(error))
+  }
+}
+
 export default function initializeStore(state) {
-    const store = createStore(
-        allReducers, 
-        Object.assign({}, {
-            counter: initialState
-        }, state),  
-        composeWithDevTools()
-    )
-    return store
+  const store = createStore(
+    allReducers,
+    Object.assign(
+      {},
+      {
+        user: userInitialState,
+      },
+      state
+    ),
+    composeWithDevTools(applyMiddleware(ReduxThunk))
+  )
+  return store
 }
