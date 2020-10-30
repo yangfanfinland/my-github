@@ -2,6 +2,7 @@ const Koa = require('koa')
 const Router = require('koa-router')
 const next = require('next')
 const session = require('koa-session')
+const koaBody = require('koa-body')
 const RedisSessionStore = require('./server/session-store')
 const Redis = require('ioredis')
 const auth = require('./server/auth')
@@ -16,12 +17,13 @@ app.prepare().then(() => {
   const server = new Koa()
   const router = new Router()
 
+  server.use(koaBody())
+
   server.keys = ['Yang Fan Github App']
   const SESSION_CONFIG = {
     key: 'jid',
     store: new RedisSessionStore(redis),
   }
-
   server.use(session(SESSION_CONFIG, server))
 
   auth(server)

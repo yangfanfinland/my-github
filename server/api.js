@@ -8,6 +8,7 @@ module.exports = (server) => {
   server.use(async (ctx, next) => {
     const { path, method } = ctx
     if (path.startsWith('/github/')) {
+      console.log(ctx.request.body)
       const githubAuth = ctx.session.githubAuth
       const { token_type, access_token } = githubAuth || {}
       const headers = {}
@@ -17,7 +18,7 @@ module.exports = (server) => {
       const result = await requestGithub(
         method,
         ctx.url.replace('/github/', '/'),
-        {},
+        ctx.request.body || {},
         headers
       )
 
