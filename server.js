@@ -5,6 +5,7 @@ const session = require('koa-session')
 const RedisSessionStore = require('./server/session-store')
 const Redis = require('ioredis')
 const auth = require('./server/auth')
+const api = require('./server/api')
 
 const dev = process.env.NODE_ENV === 'production'
 const app = next({ dev })
@@ -24,6 +25,7 @@ app.prepare().then(() => {
   server.use(session(SESSION_CONFIG, server))
 
   auth(server)
+  api(server)
 
   router.get('/test/a/:id', async (ctx) => {
     const id = ctx.params.id

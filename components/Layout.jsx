@@ -5,8 +5,8 @@ import Container from './Container'
 import getConfig from 'next/config'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../store/store'
-import axios from 'axios'
 import { withRouter } from 'next/router'
+import Link from 'next/link'
 
 const { Header, Content, Footer } = Layout
 const { publicRuntimeConfig } = getConfig()
@@ -16,7 +16,8 @@ const footerStyle = {
 }
 
 function MyLayout({ children, router }) {
-  const [search, setSearch] = useState('')
+  const urlQuery = router.query && router.query.query
+  const [search, setSearch] = useState(urlQuery || '')
   const user = useSelector((store) => store.user)
   const dispatch = useDispatch()
 
@@ -27,7 +28,9 @@ function MyLayout({ children, router }) {
     [setSearch]
   )
 
-  const handleOnSearh = useCallback(() => {}, [])
+  const handleOnSearch = useCallback(() => {
+    router.push(`/search?query=${search}`)
+  }, [search])
 
   const handleLogout = useCallback(() => {
     dispatch(logout())
@@ -49,13 +52,16 @@ function MyLayout({ children, router }) {
         <Container renderer={<div className="header-inner" />}>
           <div className="header-left">
             <div className="logo">
-              <GithubOutlined />
+              <Link href="/">
+                <GithubOutlined />
+              </Link>
             </div>
             <div className="search">
               <Input.Search
+                value = {search}
                 placeholder="search repository"
                 onChange={handleSearchChange}
-                onSearch={handleOnSearh}
+                onSearch={handleOnSearch}
               />
             </div>
           </div>
@@ -106,13 +112,18 @@ function MyLayout({ children, router }) {
         }
       `}</style>
       <style jsx global>{`
-        #__next,
-        .ant-layout {
+        #__next {
           height: 100%;
+        }
+        .ant-layout {
+          min-height: 100%;
         }
         .ant-layout-header {
           padding-left: 0;
           padding-right: 0;
+        }
+        .ant-layout-content {
+          background: #fff;
         }
       `}</style>
     </Layout>
