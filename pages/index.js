@@ -4,13 +4,20 @@ import getConfig from 'next/config'
 import Router, { withRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import Repository from '../components/Repository'
+import initCache from '../lib/client-cache'
 const api = require('../lib/api')
 
 const { publicRuntimeConfig } = getConfig()
+const { cache, useCache } = initCache()
 
 const Index = ({ userRepos, userStarredRepos, router }) => {
   const user = useSelector((store) => store.user)
   const tabKey = router.query.key || '1'
+
+  useCache('cache', {
+    userRepos,
+    userStarredRepos,
+  })
 
   if (!user || !user.id) {
     return (
@@ -109,7 +116,7 @@ const Index = ({ userRepos, userStarredRepos, router }) => {
   )
 }
 
-Index.getInitialProps = async ({ ctx, reduxStore }) => {
+Index.getInitialProps = cache(async ({ ctx, reduxStore }) => {
   const { user } = reduxStore.getState()
   const isLogin = user && user.id
   if (!isLogin) {
@@ -136,6 +143,6 @@ Index.getInitialProps = async ({ ctx, reduxStore }) => {
     userRepos,
     userStarredRepos,
   }
-}
+})
 
 export default withRouter(Index)
