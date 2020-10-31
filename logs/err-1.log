@@ -1,0 +1,44 @@
+You have triggered an unhandledRejection, you may have forgotten to catch a Promise rejection:
+Error: ENOENT: no such file or directory, rmdir '/Users/fan/WebstormProjects/my-github/.next/static/-6bcMcLVEdUttT0T4n7au'
+2020-10-31 13:49:08: Warning: Built-in CSS support is being disabled due to custom CSS configuration being detected.
+See here for more info: https://err.sh/next.js/built-in-css-disabled
+
+2020-10-31 13:49:11: Warning: Built-in CSS support is being disabled due to custom CSS configuration being detected.
+See here for more info: https://err.sh/next.js/built-in-css-disabled
+
+2020-10-31 13:49:15: Warning: Built-in CSS support is being disabled due to custom CSS configuration being detected.
+See here for more info: https://err.sh/next.js/built-in-css-disabled
+
+2020-10-31 13:49:19: Warning: Built-in CSS support is being disabled due to custom CSS configuration being detected.
+See here for more info: https://err.sh/next.js/built-in-css-disabled
+
+2020-10-31 13:49:22: Warning: Built-in CSS support is being disabled due to custom CSS configuration being detected.
+See here for more info: https://err.sh/next.js/built-in-css-disabled
+
+2020-10-31 13:49:26: Warning: Built-in CSS support is being disabled due to custom CSS configuration being detected.
+See here for more info: https://err.sh/next.js/built-in-css-disabled
+
+2020-10-31 13:49:29: Warning: Built-in CSS support is being disabled due to custom CSS configuration being detected.
+See here for more info: https://err.sh/next.js/built-in-css-disabled
+
+2020-10-31 13:49:33: Warning: Built-in CSS support is being disabled due to custom CSS configuration being detected.
+See here for more info: https://err.sh/next.js/built-in-css-disabled
+
+2020-10-31 13:49:36: Warning: Built-in CSS support is being disabled due to custom CSS configuration being detected.
+See here for more info: https://err.sh/next.js/built-in-css-disabled
+
+2020-10-31 13:49:41: Warning: Built-in CSS support is being disabled due to custom CSS configuration being detected.
+See here for more info: https://err.sh/next.js/built-in-css-disabled
+
+2020-10-31 13:49:45: Warning: Built-in CSS support is being disabled due to custom CSS configuration being detected.
+See here for more info: https://err.sh/next.js/built-in-css-disabled
+
+2020-10-31 13:49:48: Warning: Built-in CSS support is being disabled due to custom CSS configuration being detected.
+See here for more info: https://err.sh/next.js/built-in-css-disabled
+
+2020-10-31 13:49:52: Warning: Built-in CSS support is being disabled due to custom CSS configuration being detected.
+See here for more info: https://err.sh/next.js/built-in-css-disabled
+
+2020-10-31 13:49:55: Warning: Built-in CSS support is being disabled due to custom CSS configuration being detected.
+See here for more info: https://err.sh/next.js/built-in-css-disabled
+
