@@ -1,7 +1,9 @@
 {
     "apps": {
         "name": "github",
-        "script": "server.js",
+        "script": "npm",
+        "args": "start",
+        "cwd": "./",
         "watch": true,
         "ignore_watch": [
             "node_modules",
