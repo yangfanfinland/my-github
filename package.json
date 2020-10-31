@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev:new": "next build && node server.js",
-    "dev": "next dev",
+    "dev": "next build && node server.js",
+    "dev:org": "next dev",
     "build": "next build",
-    "start:old": "next start",
-    "start": "NODE_ENV=production node server.js",
-    "prd": "pm2 start npm --name 'github' -- start"
+    "start:org": "next start",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "start:backup": "pm2 start npm --name 'github' -- start"
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
